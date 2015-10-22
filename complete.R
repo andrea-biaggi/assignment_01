@@ -1,0 +1,11 @@
+complete <- function(directory, id = 1:332) {
+    files_full <- list.files(directory, full.names = TRUE)
+    summary(files_full)
+    files_list <- vector(mode = "list", length = length(files_full))
+    for (i in id) {
+        files_list[[i]] <- read.csv(files_full[i])
+    }
+    output <- do.call(rbind,files_list)
+    data_subset <- subset(output, complete.cases(output) & ID %in% id)
+    
+}
